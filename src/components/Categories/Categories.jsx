@@ -1,7 +1,4 @@
-import { useState } from 'react';
-
-export default function Categories() {
-  const [activity, setActive] = useState(0);
+export default function Categories({activity, setActive}) {
   const clickHandler = index => {
     setActive(index);
   };
@@ -9,10 +6,10 @@ export default function Categories() {
   const categoriesArray = [
     'Все',
     'Мясные',
-    'Вегатерианская',
+    'Вегатерианские',
     'Гриль',
     'Острые',
-    'Закрытые',
+    'Невкусные',
   ];
 
   return (
