@@ -4,20 +4,25 @@ import { Home } from './pages/Home';
 import { NotFound } from './pages/NotFound';
 import { Route, Routes } from 'react-router-dom';
 import { Cart } from './pages/Cart';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
+
+export const SearchContext = createContext();
 
 function App() {
-  const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useState('');
+
   return (
     <div className='wrapper'>
-      <Header inputValue={inputValue} setInputValue={(i) => setInputValue(i)} />
-      <div className='content'>
-        <Routes>
-          <Route path='/' element={<Home inputValue={inputValue} />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path='*' element={<NotFound />} />
-        </Routes>
-      </div>
+      <SearchContext.Provider value={ {inputValue, setInputValue} }>
+        <Header />
+        <div className='content'>
+          <Routes>
+            <Route path='/' element={<Home inputValue={inputValue} />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </div>
+      </SearchContext.Provider>
     </div>
   );
 }

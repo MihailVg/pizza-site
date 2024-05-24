@@ -4,15 +4,25 @@ import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Categories from '../components/Categories/Categories';
 import Sort from '../components/Sort/Sort';
 import { Pagination } from '../components/Pagination/Pagination';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterSlice';
 
 export const Home = ({ inputValue }) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [categoriesActivity, setActive] = useState(0);
-  const [sortType, setSortType] = useState('rating');
+  // const [sortType, setSortType] = useState('rating');
   
   const [currentPage, setCurrentPage] = useState(1)
+
+  const categoriesActivity = useSelector(state => state.filter.categoryId)
+  const dispatch = useDispatch()
+
+  const setActive = (id) => {
+    dispatch(setCategoryId(id))
+  }
+
+  const sortType = useSelector(state => state.filter.sortType.sorting)
 
   let categoriesShowed = categoriesActivity === 0? '' : categoriesActivity
 
@@ -35,7 +45,7 @@ export const Home = ({ inputValue }) => {
     <div className='container'>
       <div className='content__top'>
         <Categories activity={categoriesActivity} setActive={(activityId) => setActive(activityId)} />
-        <Sort sortType={sortType} setSortType={(sortTypeId) => setSortType(sortTypeId)}/>
+        <Sort />
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>

@@ -1,7 +1,15 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSorting } from '../../redux/slices/filterSlice';
 
-export default function Sort({ sortType, setSortType }) {
+export default function Sort() {
   const [visible, setVisible] = useState(false);
+
+  const sortType = useSelector(state => state.filter.sortType.sorting)
+  const dispatch = useDispatch()
+  const setSortType = (id) => {
+    dispatch(setSorting(id))
+  }
 
   const clickHandler = (i) => {
     setVisible(false);
